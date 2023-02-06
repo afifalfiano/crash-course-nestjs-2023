@@ -13,9 +13,11 @@ import {
   UsePipes,
   ValidationPipe,
   HttpException,
+  UseGuards
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
+import { AuthGuard } from 'src/users/guards/auth.guard';
 import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user.pipe';
 import { UsersService } from 'src/users/services/users/users.service';
 
@@ -25,6 +27,7 @@ export class UsersController {
 
   // this route using query param.
   @Get()
+  @UseGuards(AuthGuard)
   getUsers() {
     return this.userService.fetchUsers();
   }
